@@ -1,0 +1,8 @@
+# Latency probe for a REGION host (no Node needed there). Copy to /etc/caddy/Caddyfile on that host,
+# replace sg.your-domain.com, then add it to the main server: REGION_PING='{"sg":"https://sg.your-domain.com/ping"}'
+sg.your-domain.com {
+	header Access-Control-Allow-Origin "*"
+	header Cache-Control "no-store"
+	respond /ping 204
+	respond 404
+}

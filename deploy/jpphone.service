@@ -1,0 +1,29 @@
+# JPPhone dashboard + API + cloud phone engine.
+# Installed by deploy/install-app.sh to /etc/systemd/system/jpphone.service
+[Unit]
+Description=JPPhone dashboard and cloud phone engine
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+User=jpphone
+Group=jpphone
+WorkingDirectory=/opt/jpphone/server
+EnvironmentFile=/etc/jpphone.env
+# HOME holds the ADB key and the SSH key used to reach remote phone hosts.
+Environment=NODE_ENV=production HOME=/var/lib/jpphone
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning index.js
+Restart=always
+RestartSec=3
+TimeoutStopSec=20
+LimitNOFILE=65536
+
+# Hardening: read-only system, writable data only.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/jpphone/server/data /var/lib/jpphone
+
+[Install]
+WantedBy=multi-user.target

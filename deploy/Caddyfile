@@ -1,0 +1,14 @@
+# HTTPS in front of the JPPhone server. Caddy gets and renews the certificate automatically
+# (the domain's DNS A record must point at this server, ports 80 and 443 open).
+# install-app.sh replaces your-domain.com with the real domain.
+your-domain.com {
+	encode zstd gzip
+	# Plain HTTP and the live-video WebSocket both go to the Node server.
+	reverse_proxy 127.0.0.1:8787
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}

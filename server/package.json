@@ -1,0 +1,19 @@
+{
+  "name": "jpphone-server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "JPPhone backend: account/billing API + cloud phone engine (Redroid via Docker + ADB).",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning index.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemailer": "^10.1.7",
+    "ws": "^8.21.3"
+  }
+}
